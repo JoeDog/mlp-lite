@@ -7,10 +7,11 @@ public abstract class Function {
   public static final int LOGISTIC   = 4;
   public static final int RELU       = 5;
   public static final int SIGMOIDAL  = 6; 
+  public static final int TAHN       = 7; 
 
   public Function () {
   }
-
+  public abstract int    function();
   public abstract double evaluate(double value);
   public abstract double derivate(double value);
 }
