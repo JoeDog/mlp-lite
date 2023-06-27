@@ -2,20 +2,35 @@
   <property name="home.dir"  value="." />
   <property name="src.dir"   value="src" />
   <property name="build.dir" value="out" />
+  <property name="test.dir"  value="tests" />
   <property name="lib.dir"   value="lib" />
   <property name="dist.dir"  value="${basedir}" />
 
   <target name="clean">
     <delete dir="${build.dir}"></delete>
+    <!--
     <delete file="xor.xml"></delete>
     <delete file="tmp.xml"></delete>
+    -->
   </target>
 
   <path id="classpath">
     <pathelement location="${build.dir}" />
+    <!-- 
     <fileset dir="${lib.dir}">
       <include name="*.jar" />
     </fileset>
+    -->
+  </path>
+
+  <path id="test.classpath">
+    <pathelement location="${build.dir}" />
+    <pathelement location="${test.dir}" />
+    <!-- 
+    <fileset dir="${lib.dir}">
+      <include name="*.jar" />
+    </fileset>
+    -->
   </path>
 
   <target name="compile">
@@ -27,54 +42,65 @@
     </javac>        
   </target>
 
+  <target name="test.compile">
+    <mkdir dir="${build.dir}" />
+    <javac debug="true" includeantruntime="false" destdir="${build.dir}">
+      <src path="${src.dir}"/>
+      <src path="${test.dir}"/>
+      <!-- <compilerarg value="-Xlint"/>-->
+      <classpath refid="test.classpath" />
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+
+
   <target name="run" depends="clean,compile">
     <java classname="org.joedog.ann.tests.XOr" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
   
-  <target name="numbers" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.Numbers" fork="yes">
+  <target name="xor" depends="clean,test.compile">
+    <java classname="tests.XOr" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="xor" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.XOr" fork="yes">
+  <target name="trained" depends="clean,test.compile">
+    <java classname="tests.XOrTrained" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="trained" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.XOrTrained" fork="yes">
+  <target name="xand" depends="clean,test.compile">
+    <java classname="tests.XAnd" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="sqrt" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.Sqrt" fork="yes">
+  <target name="numbers" depends="clean,test.compile">
+    <java classname="tests.Numbers" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="xand" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.XAnd" fork="yes">
+  <target name="sqrt" depends="clean,test.compile">
+    <java classname="tests.Sqrt" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="next" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.Next" fork="yes">
+  <target name="next" depends="clean,test.compile">
+    <java classname="tests.Next" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="count" depends="clean,compile">
-    <java classname="org.joedog.ann.tests.Count" fork="yes">
+  <target name="count" depends="clean,test.compile">
+    <java classname="tests.Count" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
-
 
   <target name="jar" depends="clean,compile">
     <jar jarfile="${dist.dir}/${ant.project.name}-${version}.jar" basedir="${build.dir}">
