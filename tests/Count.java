@@ -9,7 +9,7 @@ public class Count {
    * Given input n, produce the next five consecutive numbers.
    */
   public static void main(String [] args) {
-    MLP mlp = MLP.getInstance(new int[]{1,10,5}, new FunctionFactoryImpl().getFunction(Function.SIGMOIDAL), true);
+    MLP mlp = MLP.getInstance(new int[]{1,5,5,5,5}, new FunctionFactoryImpl().getFunction(Function.SIGMOIDAL), true);
     Value [] val = new Value[100];
     for (int i = 1; i < val.length; i++) {
       val[i-1] = new Value.ValueBuilder().inRange(1, 100, i);
@@ -23,7 +23,6 @@ public class Count {
       mlp.addExample(new Value[]{val[i]}, new Value[]{val[i+1], val[i+2], val[i+3], val[i+4], val[i+5]});
     }
     mlp.learnByExample(100000000);
-    System.out.println(mlp.toString());
     System.out.println("LEARNED :");
     for (int i = 0; i < 5; i++) {
       Random   rdm = new Random();
@@ -35,5 +34,6 @@ public class Count {
         out[2].asInt(1,100), out[3].asInt(1,100), out[4].asInt(1,100)
       );
     }
+    mlp.save("count.xml");
   }
 }
