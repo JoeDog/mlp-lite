@@ -10,5 +10,3 @@ ant next<br>
 ant count<br>
 
 
-Dependencies: https://repo1.maven.org/maven2/com/fasterxml/jackson/core/
-
