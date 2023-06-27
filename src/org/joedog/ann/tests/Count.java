@@ -22,7 +22,7 @@ public class Count {
       );
       mlp.addExample(new Value[]{val[i]}, new Value[]{val[i+1], val[i+2], val[i+3], val[i+4], val[i+5]});
     }
-    mlp.learnByExample(4000000);
+    mlp.learnByExample(100000000);
     System.out.println(mlp.toString());
     System.out.println("LEARNED :");
     for (int i = 0; i < 5; i++) {
@@ -31,10 +31,9 @@ public class Count {
       Value [] in  = new Value[]{val[r]};
       Value [] out = mlp.predict(in); 
       System.out.printf( "  input: %d output: %d, %d, %d, %d, %d\n", 
-        in[0].asInt(),  out[0].asInt(1,100), out[1].asInt(1,100), 
+        in[0].asInt(),  out[0].asInt(0,100), out[1].asInt(0,100), 
         out[2].asInt(1,100), out[3].asInt(1,100), out[4].asInt(1,100)
       );
     }
   }
 }
-
