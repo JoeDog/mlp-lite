@@ -42,13 +42,15 @@ public class Value {
   }
 
   public int asInt() {
-    return (int)this.denormalize();
+    double d = this.denormalize();
+    //System.out.printf("d: %3.5f, ceil: %3.5f\n", d, Math.ceil(d));
+    return (int)Math.ceil(this.denormalize());
   }
 
   public int asInt(int min, int max) {
     this.min = min;
     this.max = max;
-    return (int)this.denormalize();
+    return (int)Math.ceil(this.denormalize());
   }
 
   public double asDouble() {
@@ -72,6 +74,7 @@ public class Value {
   }
 
   private double denormalize() {
+    //System.out.printf("denorm: %3.4f\n", this.value * (this.max - this.min) + this.min);
     return (this.value * (this.max - this.min) + this.min);
   }  
 
