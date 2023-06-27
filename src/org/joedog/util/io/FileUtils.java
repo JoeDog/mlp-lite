@@ -77,11 +77,19 @@ public final class FileUtils {
   }
 
   public final static void append(String name, String content) {
+    FileUtils.write(name, content, true);
+  } 
+
+  public final static void write(String name, String content) {
+    FileUtils.write(name, content, false);
+  }
+
+  public final static void write(String name, String content, boolean append) {
     FileWriter     fw  = null;
     BufferedWriter bw  = null;
     PrintWriter    out = null;
     try {
-      fw  = new FileWriter(name, true);
+      fw  = new FileWriter(name, append);
       bw  = new BufferedWriter(fw);
       out = new PrintWriter(bw);
       out.println(content);
