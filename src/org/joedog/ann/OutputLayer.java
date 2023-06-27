@@ -9,6 +9,10 @@ public class OutputLayer extends Layer {
     super(mlp, function, count);
   }  
 
+  public String getType() {
+    return this.type;
+  }
+
   public Value[] getOutputValues() {
     Value[] out = new Value[this.count];
     int i = 0;
