@@ -312,7 +312,7 @@ public class MLP {
       if (count % 5000000 == 0) {
         System.out.printf("Count: %d, MSE: %.10f, MAE: %.10f\n", orig-count, this.MSE(), this.MAE());
       }
-      if (this.MSE() <= 0.00000000001 && this.MAE() < 0.0000001) {
+      if (this.MSE() <= 0.00000000001 && this.MAE() < 0.00000001) {
         System.out.printf("Done: MSE: %.10f, MAE: %.10f\n", this.MSE(), this.MAE());
         return true;
       }
