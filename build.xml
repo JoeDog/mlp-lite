@@ -7,6 +7,8 @@
 
   <target name="clean">
     <delete dir="${build.dir}"></delete>
+    <delete file="xor.xml"></delete>
+    <delete file="tmp.xml"></delete>
   </target>
 
   <path id="classpath">
