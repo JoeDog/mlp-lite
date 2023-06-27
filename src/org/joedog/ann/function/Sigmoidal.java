@@ -21,6 +21,10 @@ public class Sigmoidal extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.SIGMOIDAL;
+  }
+
   public double evaluate(double input) {
     double e = Math.exp(-input);
     return 1 / (1 + e);

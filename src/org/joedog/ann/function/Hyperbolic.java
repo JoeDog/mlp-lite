@@ -19,6 +19,10 @@ public class Hyperbolic extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.HYPERBOLIC;
+  }
+
   public double evaluate(double value) {
     return Math.tanh(value);
   }

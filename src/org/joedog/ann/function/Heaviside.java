@@ -19,6 +19,10 @@ public class Heaviside extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.HEAVISIDE;
+  }
+
   public double evaluate(double value) {
     if (value >= 0.0) {
       return 1.0;

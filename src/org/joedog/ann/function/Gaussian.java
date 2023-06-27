@@ -21,6 +21,10 @@ public class Gaussian extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.GAUSSIAN;
+  }
+
   public double evaluate(double x) {
     double d = Math.pow(-x, 2);
     double f = 1 / (Math.exp(d));

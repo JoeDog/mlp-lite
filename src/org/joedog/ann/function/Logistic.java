@@ -19,6 +19,10 @@ public class Logistic extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.LOGISTIC;
+  }
+
   public double evaluate(double value) {
     return (double) (1 / (1+Math.exp(-value)));
   }

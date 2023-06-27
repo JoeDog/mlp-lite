@@ -19,6 +19,10 @@ public class ReLU extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.RELU;
+  }
+
   public double evaluate(double input) {
     return 1 / (1 + Math.exp(-input));
   }

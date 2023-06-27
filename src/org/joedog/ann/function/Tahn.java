@@ -19,6 +19,10 @@ public class Tahn extends Function {
     return _instance;
   }
 
+  public int function() {
+    return Function.TAHN;
+  }
+
   public double evaluate(double input) {
     return Math.tanh(input);
   }
