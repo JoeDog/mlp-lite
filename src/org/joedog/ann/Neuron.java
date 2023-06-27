@@ -4,21 +4,32 @@ import java.lang.Math;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 public class Neuron {
-  private Layer     parent = null; // self._parentLayer
-  private Bias      bias   = null; // self._inputBias
-  private double    inval  = 0.0; // self._computedInput
-  private double    outval = 0.0; // self._computedOutput
-  private double    delta  = 0.0; // self._computedDeltaError
-  private double    error  = 0.0; // self._computedSignalError
+  private Layer     parent = null; 
+  private Bias      bias   = null; // inputBias
+  private double    inval  = 0.0;  // computedInput
+  private double    outval = 0.0;  // computedOutput
+  private double    delta  = 0.0;  // computedDeltaError
+  private double    error  = 0.0;  // computedSignalError
   private UUID      uuid   = null;
-  private ArrayList<Connection> inputs = new ArrayList<Connection>(); // self._inputConnections
-  private ArrayList<Connection> output = new ArrayList<Connection>(); // self._outputConnections
+  private ArrayList<Connection> inputs = new ArrayList<Connection>(); 
+  private ArrayList<Connection> output = new ArrayList<Connection>(); 
  
   public Neuron(Layer parent) {
     this.uuid   = UUID.randomUUID();
     this.parent = parent;
+  }
+
+  public Neuron(Layer parent, double v, double o, double d, double e) {
+    this.uuid   = UUID.randomUUID();
+    this.parent = parent;
+    this.inval  = v;
+    this.outval = o; 
+    this.delta  = d;
+    this.error  = e;
   }
 
   public void addOutputConnection(Connection conn) {
@@ -33,6 +44,7 @@ public class Neuron {
     this.inputs.add(conn);
   }
 
+  @XmlElement(name="connection")
   public ArrayList<Connection> getInputConnections() {
     return this.inputs;
   }
@@ -41,22 +53,52 @@ public class Neuron {
     this.bias = bias;
   }
 
+  @XmlElement(name="bias")
   public Bias getBias() {
     return this.bias;
+  }
+
+  @XmlAttribute(name="position")
+  public int getNeuronIndex() {
+    return this.parent.getNeuronIndex(this);
+  }
+  
+  public int getLayerIndex() {
+    return this.parent.getLayerIndex();
   }
 
   public void setOutputValue(Value value) {
     this.outval = value.getValue();
   }
 
+  //@XmlAttribute(name="output")
   public double getOutputValue() {
     return this.outval;
   } 
 
+  //@XmlAttribute(name="input")
+  public double getInputValue() {
+    return this.inval;
+  } 
+
+  //@XmlAttribute(name="error")
+  public double getError() {
+    return this.error;
+  }
+
+  //@XmlAttribute(name="delta")
+  public double getDelta() {
+    return this.delta;
+  }
+
+  //@XmlElement(name="uuid")
+  public String getUUID() {
+    return this.uuid.toString();
+  }
+
   public void calculateOutput() {
     this._calculateInput();
     if (this.parent.isFunctional()) {
-      double in = this.inval*this.parent.parentGain();
       this.outval = this.parent.evaluate(this.inval *this.parent.parentGain());
     } 
   }
@@ -93,15 +135,6 @@ public class Neuron {
     this.inval = sum;
   }
 
-  public double getError() {
-    // signal error
-    return this.error;
-  }
-
-  public String getUUID() {
-    return this.uuid.toString();
-  }
-
   public String toString() {
     StringBuffer sb = new StringBuffer();
     sb.append("Neuron: ["+this.uuid.toString()+"]\n");
@@ -109,18 +142,6 @@ public class Neuron {
     sb.append("output: "+Util.round(this.outval, 10)+", ");
     sb.append("delta: "+Util.round(this.delta, 10)+", ");
     sb.append("error: "+Util.round(this.error, 10)+"\n");
-    /*sb.append(" - inputs:  [");
-    for (int i = 0; i < this.inputs.size(); i++) {
-      String sep = (i == this.inputs.size()-1) ? "" : ",";
-      sb.append(this.inputs.get(i).toString()+sep);
-    } 
-    sb.append("]\n");
-    sb.append(" - output:  [");
-    for (int i = 0; i < this.output.size(); i++) {
-      String sep = (i == this.output.size()-1) ? "" : ",";
-      sb.append(this.output.get(i).toString()+sep);
-    }
-    sb.append("]\n");*/
     if (this.bias != null) {
       sb.append(" - bias:  ");
       sb.append(this.bias.toString()+"\n");
