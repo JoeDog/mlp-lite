@@ -1,6 +1,7 @@
 package org.joedog.ann;
 
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlAttribute;
 
 public class Connection {
   private UUID   uuid     = null;
@@ -41,8 +42,19 @@ public class Connection {
     return this.ndst;
   }
 
+  @XmlAttribute(name="weight")
   public double getWeight() {
     return this.weight;
+  }
+
+  @XmlAttribute(name="neuronIndex")
+  public int getIndex() {
+    return this.nsrc.getNeuronIndex();
+  }
+
+  @XmlAttribute(name="layerIndex")
+  public int getLayerIndex() {
+    return this.nsrc.getLayerIndex();
   }
 
   public String toString() {
