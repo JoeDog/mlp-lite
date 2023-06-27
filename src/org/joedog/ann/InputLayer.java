@@ -7,6 +7,10 @@ public class InputLayer extends Layer {
     super(mlp, null, count);
   }  
 
+  public String getType() {
+    return this.type;
+  }
+
   public boolean setInputValues(Value[] values) {
     if (values.length != this.count) return false;
     for (int i = 0; i < this.count; i++) {
