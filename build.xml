@@ -11,9 +11,9 @@
 
   <path id="classpath">
     <pathelement location="${build.dir}" />
-    <!--<fileset dir="${lib.dir}">
+    <fileset dir="${lib.dir}">
       <include name="*.jar" />
-    </fileset>-->
+    </fileset>
   </path>
 
   <target name="compile">
@@ -39,6 +39,12 @@
 
   <target name="xor" depends="clean,compile">
     <java classname="org.joedog.ann.tests.XOr" fork="yes">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+
+  <target name="trained" depends="clean,compile">
+    <java classname="org.joedog.ann.tests.XOrTrained" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
