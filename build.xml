@@ -66,38 +66,14 @@
     </java>
   </target>
 
-  <target name="trained" depends="clean,test.compile">
-    <java classname="tests.XOrTrained" fork="yes">
-      <classpath refid="classpath" />
-    </java>
-  </target>
-
   <target name="xand" depends="clean,test.compile">
     <java classname="tests.XAnd" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
 
-  <target name="numbers" depends="clean,test.compile">
-    <java classname="tests.Numbers" fork="yes">
-      <classpath refid="classpath" />
-    </java>
-  </target>
-
-  <target name="sqrt" depends="clean,test.compile">
-    <java classname="tests.Sqrt" fork="yes">
-      <classpath refid="classpath" />
-    </java>
-  </target>
-
   <target name="next" depends="clean,test.compile">
     <java classname="tests.Next" fork="yes">
-      <classpath refid="classpath" />
-    </java>
-  </target>
-
-  <target name="count" depends="clean,test.compile">
-    <java classname="tests.Count" fork="yes">
       <classpath refid="classpath" />
     </java>
   </target>
