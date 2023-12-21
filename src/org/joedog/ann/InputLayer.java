@@ -1,5 +1,7 @@
 package org.joedog.ann;
 
+import org.joedog.ann.data.*;
+
 public class InputLayer extends Layer {
   private String type = "InputLayer";
 
