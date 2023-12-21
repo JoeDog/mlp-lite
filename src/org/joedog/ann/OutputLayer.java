@@ -1,5 +1,6 @@
 package org.joedog.ann;
 
+import org.joedog.ann.data.*;
 import org.joedog.ann.function.*;
 
 public class OutputLayer extends Layer {
