@@ -7,6 +7,8 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.joedog.ann.data.*;
+
 public class Neuron {
   private Layer     parent = null; 
   private Bias      bias   = null; // inputBias
