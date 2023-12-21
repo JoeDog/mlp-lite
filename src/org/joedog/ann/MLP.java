@@ -21,6 +21,7 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.namespace.QName;
 
+import org.joedog.ann.data.*;
 import org.joedog.ann.function.*;
 import org.joedog.util.io.FileUtils;
 import org.joedog.util.config.INI;
@@ -301,6 +302,56 @@ public class MLP {
     }
     return false;
   }
+  
+  public boolean learnByExample(int count) {
+    int orig = count;
+    if (this.examples.size() < 1) return false;
+
+    while (count > 0) {
+      int i = Util.randomIndex(this.examples.size());
+      if (! this.learn(this.examples.get(i).getInputs(), this.examples.get(i).getTarget())) {
+        return false;
+      }
+      if (count % 1000000 == 0) {
+        double avg = 0.00;
+        for (Example e : this.examples) {
+          this.learn(e.getInputs(), e.getTarget());
+          avg += this.MAE();
+        } 
+        avg /= this.MAE();
+        System.out.printf("Count: %d, Error: %f\n", count, avg);
+      } 
+      count--;
+    }
+    return true;
+  }
+
+  /**
+  def learnByExample(self, count:int=1000000, threshold:float=None)->bool:
+    orig = count
+    if len(self.examples) < 1:
+      print("ERROR: We have no examples from which to learn")
+      return False
+    while count > 0:
+      i = Util.randomIndex(len(self.examples))
+      if not self.learn((self.examples[i]).getInputs(), (self.examples[i]).getTarget()):
+        return False
+      if count % 5000 == 0:
+        avg = 0.00
+        for e in self.examples:
+          self.learn(e.getInputs(), e.getTarget())
+          avg += self.MAE()
+        avg /= len(self.examples)
+        if threshold != None and avg < threshold:
+          print("Done.")
+          return True
+        print("Count: {}  Error: {}".format(orig-count, np.format_float_positional(avg, trim='-')))
+      if threshold == None:
+        count -= 1
+      else:
+        count = (count-1) if count > 1 else 100000
+    print("Done: MSE: {}, MAE: {} (reps complete:{})".format(self.MSE(), self.MAE(), count))
+    return True
 
   public boolean learnByExample(int count) {
     int orig = count;
@@ -312,7 +363,7 @@ public class MLP {
       if (count % 5000000 == 0) {
         System.out.printf("Count: %d, MSE: %.10f, MAE: %.10f\n", orig-count, this.MSE(), this.MAE());
       }
-      if (this.MSE() <= 0.00000000001 && this.MAE() < 0.00000001) {
+      if (this.MSE() <= 0.000000000001 && this.MAE() < 0.000000001) {
         System.out.printf("Done: MSE: %.10f, MAE: %.10f\n", this.MSE(), this.MAE());
         return true;
       }
@@ -321,6 +372,7 @@ public class MLP {
     System.out.printf("Count complete: MSE: %.10f, MAE: %.10f\n", this.MSE(), this.MAE());
     return true;
   }
+  */
 
   public boolean isConstructed() {
     return (this.getInputLayer() != null && this.getOutputLayer() != null);
