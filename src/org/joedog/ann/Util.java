@@ -4,6 +4,8 @@ import java.util.Random;
 import java.math.RoundingMode;
 import java.math.BigDecimal;
 
+import org.joedog.ann.data.*;
+
 public final class Util {
 
   public static double round(double number, int precision) {
